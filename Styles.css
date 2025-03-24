@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("Image/Fondo1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    align-items: center;
+}
+
+#output {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+/* Título_GIFs */
+.titulo_gif {
+    width: 10pc;
+    height: auto;
+    max-height: 10pc;
+    display: block;
+    margin: 0 auto;
+}
+
+.titulo_p {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+}
+
+/* Personajes */
+.character-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    margin: 10px;
+    justify-self: center;
+}
+
+.character-btn img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.character-btn:hover img {
+    transform: scale(1.1);
+}
+
+.character-btn p {
+    margin: 5px 0;
+    font-size: 18px;
+    color: white;
+}
