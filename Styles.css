@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("Image/Fondo1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    align-items: center;
+}
+
+#output {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+/* Estilos de los botones */
+.Boton{
+position: relative;
+font-size: 18px;
+padding: 15px 30px;
+color : white;
+background-color: black;
+font-weight: bold;
+border: 2px solid green;
+border-radius: 50px;
+overflow : hidden;
+cursor : pointer;
+transition: transform 0.2s ease, background-color 0.3s ease;
+
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+.Boton:hover {
+    background-color: transparent; 
+    color: black; 
+    transform: scale(1.1); /* Agranda el botón un 10% */
+}
+
+/* Efecto especial de animación en los botones */
+.Boton::before {
+    content: ""; 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    width: 200%; 
+    height: 200%; 
+    background: url('Image/portal.gif') no-repeat center center; 
+    background-size: cover; 
+    transform: translate(-50%, -50%) scale(0); /* Al principio oculta la imagen */
+    transition: transform 0.3s ease, opacity 0.3s ease; 
+    opacity: 0; 
+    z-index: -1; /* Enviar la imagen detras del boton */
+}
