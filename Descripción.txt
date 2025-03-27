@@ -1,0 +1,6 @@
+En esta página web, mediante desplazamientos por botones podras ver los personajes, 
+los episodios y las ubicaciones de la serie conocida como Rick & Morty.
+Podrás buscar un personaje en especifico mediante la barra de búsqueda y podrás agregarle unos filtros 
+para hacer una busqueda mas específica, mediante un botón de hamburguesa.
+
+Tambíen podrás ver los detalles de cada acción, ya sea, personajes, episodios o ubicaciones
