@@ -1,0 +1,256 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("Image/Fondo1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    align-items: center;
+}
+
+#output {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+/* Botones generales */
+.Boton {
+    position: relative;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    border: 2px solid #00ff00;
+    border-radius: 50px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.Boton:hover {
+    background-color: transparent;
+    color: black;
+    transform: scale(1.1);
+}
+
+.Boton::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: url('Image/portal.gif') no-repeat center center;
+    background-size: cover;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: -1;
+}
+
+.Boton:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+/* Logo */
+#logo {
+    width: 10%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Tarjetas de información */
+.card {
+    background-color: #3c3f47;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+    
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Botones de personajes */
+.character-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    margin: 10px;
+    justify-self: center;
+}
+
+.character-btn img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.character-btn:hover img {
+    transform: scale(1.1);
+}
+
+.character-btn p {
+    margin: 5px 0;
+    font-size: 18px;
+    color: white;
+}
+
+/* Modal de personajes */
+#characterModal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+}
+
+#characterModal img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+#characterModal button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Footer */
+#pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#pageNumbers {
+    display: flex;
+    gap: 5px;
+}
+
+#pagination .Boton {
+    padding: 10px 15px;
+    font-size: 16px;
+}
+
+#titulo {
+    font-size: 36px;
+    color: #00ff00;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    font-family: 'Arial', sans-serif;
+}
+
+.menu-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#menuButton {
+    font-size: 24px;
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#searchContainer {
+    display: flex;
+    gap: 10px;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    position: absolute;
+    left: 50px;
+    top: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+input, select, button {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    cursor: pointer;
+    background-color: #00ff00;
+    color: black;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card {
+        width: 200px;
+    }
+
+    .character-btn img {
+        width: 150px;
+        height: 150px;
+    }
+
+    #characterModal {
+        width: 300px;
+    }
+
+    #pagination .Boton {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    #output {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 150px;
+    }
+
+    .character-btn img {
+        width: 120px;
+        height: 120px;
+    }
+
+    #characterModal {
+        width: 250px;
+    }
+
+    #pagination .Boton {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
