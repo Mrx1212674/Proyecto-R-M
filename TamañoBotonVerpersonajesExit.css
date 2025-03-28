@@ -1,0 +1,22 @@
+/* 🔹 Estilo del botón "Exit" */
+.small-exit-btn {
+    position: absolute;
+    left: 20px;
+    top: -40px;
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* 🔹 Ajuste de tamaño correcto de personajes en la vista de episodios/ubicaciones */
+.character-btn img {
+    width: 200px; /* Ajuste de tamaño */
+    height: 200px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
