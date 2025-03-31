@@ -1,0 +1,94 @@
+/* Contenedor del tutorial con bordes verdes */
+@import url('Styles.css');
+
+/* Efecto de fundido al entrar */
+/* Efecto de fundido en el fondo */
+/* Efecto de fundido lento en el fondo */
+/* Fondo con efecto de fundido y desenfoque progresivo */
+/* Aplica el fondo con un efecto de fundido y desenfoque lento */
+/* Efecto de fundido en el fondo */
+body {
+    animation: fadeInBackground 1.5s ease-in-out;
+    background-image: url("Image/Fondo1.jpg"); /* Asegúrate de que la ruta sea correcta */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Definición de la animación */
+@keyframes fadeInBackground {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+.tutorial-container {
+    width: 80%;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    text-align: left;
+    border: 3px solid #00ff00; /* Borde verde alrededor del tutorial */
+}
+
+/* Secciones individuales del tutorial con bordes */
+.tutorial-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    border-radius: 5px;
+    border: 3px solid #00ff00; /* Bordes verdes */
+}
+
+.tutorial-section h2 {
+    color: #00ff00;
+    margin-bottom: 10px;
+}
+
+.tutorial-section ul {
+    list-style: none;
+    padding-left: 15px;
+}
+
+.tutorial-section ul li::before {
+    content: "✔ ";
+    color: #00ff00;
+}
+
+/* 📌 Flecha de regreso (ajustada para ser igual a inicio.html) */
+.flecha-cell {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* Ajuste de tamaño de la flecha */
+.animated-flecha {
+    width: 60px; /* Ajusta el tamaño para que coincida con inicio.html */
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    animation: bounce 1.5s infinite ease-in-out;
+}
+
+/* Animación de la flecha (movimiento arriba y abajo) */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animated-flecha:hover {
+    transform: scale(1.1);
+}
