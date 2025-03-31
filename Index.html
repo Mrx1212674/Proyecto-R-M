@@ -8,8 +8,8 @@
 </head>
 <body>
     
-    <header class="titulo_p">
-
+    <header>
+        <img src="Image/img.png" id="logo">
     </header>
 
     <div>
@@ -18,15 +18,46 @@
         <button class="Boton" id="btnEpisodios">Episodios</button>
     </div>
 
+    <div class="menu-container">
+        <button id="menuButton">☰</button>
+        <div id="searchContainer" class="hidden">
+            <input type="text" id="searchInput" placeholder="Buscar...">
+            <select id="statusFilter">
+                <option value="">Estado</option>
+                <option value="alive">Vivo</option>
+                <option value="dead">Muerto</option>
+                <option value="unknown">Desconocido</option>
+            </select>
+
+            <select id="speciesFilter">
+                <option value="">Especie</option>
+                <option value="Human">Humano</option>
+                <option value="Alien">Alien</option>
+                <option value="Robot">Robot</option>
+                <option value="Unknown">Desconocido</option>
+            </select>
+
+            <select id="genderFilter">
+                <option value="">Género</option>
+                <option value="male">Masculino</option>
+                <option value="female">Femenino</option>
+                <option value="genderless">Sin género</option>
+                <option value="unknown">Desconocido</option>
+            </select>
+
+            <button id="searchButton">🔍</button>
+        </div>
+    </div>
+
     <div id="output"></div>
 
-    <footer id="pagination">
+    <div id="pagination">
         <button class="Boton" id="btnInicio">Inicio</button>
         <button class="Boton" id="btnAnterior">Anterior</button>
         <div id="pageNumbers"></div>
         <button class="Boton" id="btnSiguiente">Siguiente</button>
         <button class="Boton" id="btnFinal">Final</button>
-    </footer>
+    </div>
 
     <div id="characterModal">
         <div id="modalContent"></div>
