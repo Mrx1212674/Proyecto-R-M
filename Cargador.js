@@ -1,12 +1,17 @@
-let currentPage = 1;
-let totalPages = 1;
-let currentType = 'character';
+// Variables globales para manejar el estado de la aplicación
+let currentPage = 1; // Página actual
+let totalPages; // Total de páginas disponibles
+let currentType = 'character'; // Tipo de datos actual (character, location, episode)
+let isShowingRelatedCharacters = false; // Indica si se están mostrando personajes relacionados
 
+// Función principal para obtener datos de la API según el tipo y la página
 function fetchData(type, page = 1) {
     currentPage = page;
     currentType = type;
+    isShowingRelatedCharacters = false;
+    document.getElementById('pagination').style.display = 'flex';
 
-    let url = `https://rickandmortyapi.com/api/${type}?page=${currentPage}`;
+    let url = `https://rickandmortyapi.com/api/${type}?page=${page}`;
 
     fetch(url)
         .then(response => response.json())
@@ -15,6 +20,7 @@ function fetchData(type, page = 1) {
             outputDiv.innerHTML = '';
             totalPages = data.info.pages;
 
+            // Renderiza los datos según el tipo seleccionado
             if (type === 'character') {
                 outputDiv.innerHTML = data.results.map(character => `
                     <button class="character-btn" onclick="showCharacterInfo(${character.id})">
@@ -25,38 +31,42 @@ function fetchData(type, page = 1) {
             } else if (type === 'location') {
                 outputDiv.innerHTML = data.results.map(location => `
                     <div class="card">
+                        <img src="Image/loc.jpg" class:Boton></img>
                         <h3>${location.name}</h3>
                         <p><strong>Tipo:</strong> ${location.type}</p>
                         <p><strong>Dimensión:</strong> ${location.dimension}</p>
+                        <p><strong>Residentes:</strong> ${location.residents.length}</p>
+                        <button class="Boton" onclick="showLocationCharacters('${location.residents.join(",")}')">Ver personajes</button>
                     </div>
                 `).join('');
             } else if (type === 'episode') {
                 outputDiv.innerHTML = data.results.map(episode => `
                     <div class="card">
+                        <img src="Image/epi.jpg" class:Boton></img>
                         <h3>${episode.name}</h3>
-                        <p><strong>Episodio:</strong> ${episode.episode}</p>
                         <p><strong>Fecha de emisión:</strong> ${episode.air_date}</p>
+                        <p><strong>Episodio:</strong> ${episode.episode}</p>
+                        <p><strong>Personajes:</strong> ${episode.characters.length}</p>
+                        <button class="Boton" onclick="showEpisodeCharacters('${episode.characters.join(",")}')">Ver personajes</button>
                     </div>
                 `).join('');
             }
 
-            updatePagination();
+            updatePagination(); // Actualiza la barra de paginación
         })
         .catch(error => console.error('Error al cargar los datos:', error));
 }
 
-
+// Evento para manejar el menú desplegable
 document.addEventListener('DOMContentLoaded', () => {
     const menuButton = document.getElementById('menuButton');
-    const elementsToToggle = [
-        document.getElementById('searchInput'),
-        document.getElementById('statusFilter'),
-        document.getElementById('speciesFilter'),
-        document.getElementById('genderFilter'),
-        document.getElementById('originFilter'),
-        document.getElementById('locationFilter'),
-        document.getElementById('searchButton') 
-    ];
+    const searchContainer = document.getElementById('searchContainer');
+
+    menuButton.addEventListener('click', () => {
+        if (searchContainer) {
+            searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
+        }
+    });
 
     menuButton.addEventListener('click', () => {
         elementsToToggle.forEach(element => {
@@ -67,9 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Evento para alternar la visibilidad del menú de búsqueda
+document.getElementById('menuButton').addEventListener('click', () => {
+    document.getElementById('searchMenu').classList.toggle('hidden');
+});
+
+// Evento para realizar búsquedas por nombre
 document.getElementById('searchButton').addEventListener('click', () => {
     const query = document.getElementById('searchInput').value.trim();
-
     if (query) {
         fetch(`https://rickandmortyapi.com/api/character/?name=${query}`)
             .then(response => response.json())
@@ -91,6 +106,97 @@ document.getElementById('searchButton').addEventListener('click', () => {
     }
 });
 
+// Añadir filtros funcionales para personajes
+document.getElementById('searchButton').addEventListener('click', () => {
+
+    const name = document.getElementById('searchInput').value.trim();
+    const status = document.getElementById('statusFilter').value;
+    const species = document.getElementById('speciesFilter').value;
+    const gender = document.getElementById('genderFilter').value;
+
+    let query = `https://rickandmortyapi.com/api/character/?`;
+    let filters = [];
+
+    if (name) filters.push(`name=${name}`);
+    if (status) filters.push(`status=${status}`);
+    if (species) filters.push(`species=${species}`);
+    if (gender) filters.push(`gender=${gender}`);
+
+    query += filters.join("&");
+
+    fetchDataWithFilters(query);
+});
+
+function fetchDataWithFilters(url) {
+    console.log("Fetching data from:", url); 
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = ''; 
+
+            if (data.results) {
+                outputDiv.innerHTML = data.results.map(character => `
+                    <button class="character-btn" onclick="showCharacterInfo(${character.id})">
+                        <img src="${character.image}" alt="${character.name}">
+                        <p>${character.name}</p>
+                    </button>
+                `).join('');
+            } else {
+                outputDiv.innerHTML = '<p>No se encontraron resultados.</p>';
+            }
+        })
+        .catch(error => console.error('Error en la búsqueda:', error));
+}
+
+// Muestra los personajes relacionados con una ubicación
+function showLocationCharacters(characterUrls) {
+    const characterIds = characterUrls.split(',').map(url => url.split('/').pop());
+    showRelatedCharacters(characterIds, 'location');
+}
+
+// Muestra los personajes relacionados con un episodio
+function showEpisodeCharacters(characterUrls) {
+    const characterIds = characterUrls.split(',').map(url => url.split('/').pop());
+    showRelatedCharacters(characterIds, 'episode');
+}
+
+
+// Muestra una lista de personajes relacionados
+function showRelatedCharacters(characterIds, previousType) {
+    isShowingRelatedCharacters = true;
+    document.getElementById('pagination').style.display = 'none';
+
+    const outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = `
+        <div class="related-characters-container">
+            <button class="Boton small-exit-btn" onclick="fetchData('${previousType}', 1)">Exit</button>
+            <div class="character-list" id="characterList"></div>
+        </div>
+    `;
+
+    const characterListDiv = document.getElementById('characterList');
+
+    fetch(`https://rickandmortyapi.com/api/character/${characterIds.join(',')}`)
+        .then(response => response.json())
+        .then(characters => {
+            if (!Array.isArray(characters)) {
+                characters = [characters];
+            }
+
+            characterListDiv.innerHTML = characters.map(character => `
+                <button class="character-btn" onclick="showCharacterInfo(${character.id})">
+                    <img src="${character.image}" alt="${character.name}">
+                    <p>${character.name}</p> <!-- Nombre debajo de la imagen -->
+                </button>
+            `).join('');
+        })
+        .catch(error => console.error('Error al obtener los personajes:', error));
+}
+
+
+// Muestra información detallada de un personaje en un modal
 function showCharacterInfo(id) {
     fetch(`https://rickandmortyapi.com/api/character/${id}`)
         .then(response => response.json())
@@ -114,18 +220,15 @@ function showCharacterInfo(id) {
         .catch(error => console.error('Error al cargar el personaje:', error));
 }
 
+// Cierra el modal de información del personaje
 function closeModal() {
     document.getElementById('characterModal').style.display = 'none';
 }
 
+// Actualiza la barra de paginación
 function updatePagination() {
     const pageNumbersDiv = document.getElementById('pageNumbers');
     pageNumbersDiv.innerHTML = '';
-
-    document.getElementById('btnInicio').style.display = currentPage === 1 ? 'none' : 'inline-block';
-    document.getElementById('btnAnterior').style.display = currentPage === 1 ? 'none' : 'inline-block';
-    document.getElementById('btnSiguiente').style.display = currentPage === totalPages ? 'none' : 'inline-block';
-    document.getElementById('btnFinal').style.display = currentPage === totalPages ? 'none' : 'inline-block';
 
     let startPage = Math.max(1, currentPage - 2);
     let endPage = Math.min(totalPages, currentPage + 2);
@@ -134,15 +237,18 @@ function updatePagination() {
         const pageButton = document.createElement('button');
         pageButton.classList.add('Boton');
         pageButton.innerText = i;
+        
         if (i === currentPage) {
             pageButton.style.backgroundColor = '#00ff00';
             pageButton.style.color = 'black';
         }
+        
         pageButton.addEventListener('click', () => fetchData(currentType, i));
         pageNumbersDiv.appendChild(pageButton);
     }
 }
 
+// Eventos para manejar la navegación entre páginas
 document.getElementById('btnPersonajes').addEventListener('click', () => fetchData('character', 1));
 document.getElementById('btnLugares').addEventListener('click', () => fetchData('location', 1));
 document.getElementById('btnEpisodios').addEventListener('click', () => fetchData('episode', 1));
@@ -152,4 +258,13 @@ document.getElementById('btnAnterior').addEventListener('click', () => fetchData
 document.getElementById('btnSiguiente').addEventListener('click', () => fetchData(currentType, Math.min(totalPages, currentPage + 1)));
 document.getElementById('btnFinal').addEventListener('click', () => fetchData(currentType, totalPages));
 
-window.onload = () => fetchData('character', 1);
+// Carga inicial de datos al abrir la página
+window.onload = () => {
+    fetch('https://rickandmortyapi.com/api/character')
+        .then(response => response.json())
+        .then(data => {
+            const randomPage = Math.floor(Math.random() * data.info.pages) + 1;
+            fetchData('character', randomPage);
+        })
+        .catch(error => console.error('Error al obtener el número total de páginas:', error));
+};
