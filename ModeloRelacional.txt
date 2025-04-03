@@ -1,0 +1,12 @@
+
+PERSONAJE (id_personaje, nombre, estatus, especie, genero, origen, imagen, id_localizacion)
+EPISODIO (id_episodio, nombre, fecha)
+LOCALIZACION (id_localizacion, nombre, tipo, dimension)
+APARECE (id_personaje, id_episodio)
+VIVE (id_personaje, id_localizacion)
+
+id_localizacion FK LOCALIZACION (id_localizacion)
+id_personaje FK PERSONAJE (id_personaje)
+id_episodio FK EPISODIO (id_episodio)
+id_personaje FK PERSONAJE (id_personaje)
+id_localizacion FK LOCALIZACION (id_localizacion)
