@@ -1,0 +1,421 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("Image/Fondo1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    align-items: center;
+}
+
+#output {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+/* Botones generales */
+.Boton {
+    position: relative;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    border: 2px solid #00ff00;
+    border-radius: 50px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.Boton:hover {
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    transform: scale(1.1);
+}
+
+.Boton::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: url('Image/portal.gif') no-repeat center center;
+    background-size: cover;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    z-index: -1;
+}
+
+.Boton:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+/* Logo */
+#logo {
+    width: 10%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.menu-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 2%;
+}
+
+#menuButton {
+    font-size: 24px;
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#searchContainer {
+    display: flex;
+    gap: 10px;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    position: absolute;
+    left: 50px;
+    top: 0;
+    transition: opacity 0.3s ease;
+    border: #00ff00 1px solid;
+}
+
+.hidden {
+    display: none;
+}
+
+input, select, button {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    cursor: pointer;
+    background-color: #00ff00;
+    color: black;
+}
+
+/* Nuevo estilo para el botón de exit */
+.exit-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    font-size: 12px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.character-list {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+/* Tarjetas de información */
+.card {
+    background-color: #3c3f47;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+}
+/* Botones de personajes */
+.character-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    margin: 10px;
+    justify-self: center;
+}
+
+.character-btn img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.character-btn:hover img {
+    transform: scale(1.1);
+}
+
+.character-btn p {
+    margin: 5px 0;
+    font-size: 18px;
+    color: white;
+    background-color: #00000091;
+}
+
+/* Modal de personajes */
+#characterModal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+}
+
+#characterModal img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+#characterModal button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btnfavorite {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.btnfavorite.active {
+    color: #00ff00;
+}
+
+/* Footer */
+#pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#pageNumbers {
+    display: flex;
+    gap: 5px;
+}
+
+#pagination .Boton {
+    padding: 10px 15px;
+    font-size: 16px;
+}
+
+#titulo {
+    font-size: 36px;
+    color: #00ff00;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Contenedor principal de sugerencias */
+.search-suggestions {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.95);
+    border: 1px solid #00ff00;
+    border-radius: 8px;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+}
+
+/* Items individuales de sugerencia */
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.suggestion-item:hover {
+    background-color: rgba(0, 255, 0, 0.1);
+}
+
+/* Imagen del personaje en sugerencias */
+.suggestion-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+    border: 1px solid #00ff00;
+}
+
+/* Texto del nombre en sugerencias */
+.suggestion-item p {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #000;
+}
+
+/* Scrollbar personalizada */
+.search-suggestions::-webkit-scrollbar {
+    width: 8px;
+}
+
+.search-suggestions::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.search-suggestions::-webkit-scrollbar-thumb {
+    background-color: #00ff00;
+    border-radius: 4px;
+}
+
+/* Ajustes para el contenedor de búsqueda */
+#searchContainer {
+    position: relative;
+}
+
+
+
+#searchInput:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+    border-color: #00ff00;
+}
+
+/* Botón para guardar en DB */
+.btnSaveDB {
+    position: absolute;
+    top: 10px;
+    right: 60px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 5px;
+}
+
+.btnSaveDB:hover {
+    color: #00ff00;
+    transform: scale(1.1);
+}
+
+#dataTypeSelector {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 2px solid #00ff00;
+    background-color: black;
+    color: white;
+}
+
+#btnExportXML {
+    margin-left: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card {
+        width: 200px;
+    }
+
+    .character-btn img {
+        width: 150px;
+        height: 150px;
+    }
+
+    #characterModal {
+        width: 300px;
+    }
+
+    #pagination .Boton {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    #output {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 150px;
+    }
+
+    .character-btn img {
+        width: 120px;
+        height: 120px;
+    }
+
+    #characterModal {
+        width: 250px;
+    }
+
+    #pagination .Boton {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+    .character-card {
+    display: inline-block;
+    text-align: center;
+    margin: 10px;
+    vertical-align: top;
+}
+
+.character-card p {
+    margin-top: 5px;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+}
+
+}
+

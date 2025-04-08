@@ -1,0 +1,98 @@
+/* Fondo de la página con el mismo estilo que Index.html */
+body {
+    background-image: url("Image/Fondo2.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+/* Efecto de entrada */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Efecto de salida */
+.fade-out {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+/* Contenedor principal */
+.content-table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Tabla */
+table {
+    width: auto;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+/* Celdas */
+.titulo-cell, .logo-cell, .flecha-cell {
+    text-align: center;
+    padding: 10px;
+}
+
+/* Título */
+.titulo {
+    font-size: 2em;
+    color: white;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Logo */
+#logo {
+    width: 60%;
+    max-width: 700px;
+}
+
+/* Flecha */
+.flecha-cell img {
+    width: 80px; /* Tamaño de la flecha */
+    height: auto;
+    cursor: pointer;
+    animation: bounce 1.5s infinite;
+}
+/* Efecto de entrada */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Efecto de disolver al salir */
+.fade-out {
+    animation: dissolveEffect 1s forwards;
+}
+
+/* Animación de disolución */
+@keyframes dissolveEffect {
+    0% { opacity: 1; filter: blur(0px); }
+    50% { opacity: 0.5; filter: blur(5px); }
+    100% { opacity: 0; filter: blur(10px); }
+}
